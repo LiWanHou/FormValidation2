@@ -1,11 +1,26 @@
 function Validator(options){
-    const formElement = document.querySelector(options.form)
-    console.log(formElement)
+    var formElement = document.querySelector(options.form)
+    if (formElement){
+        options.rules.forEach((rule) => {
+            
+        })
+     
+    }
 }
 
-Validator.isRequiredFullname = function(){
+Validator.isRequiredFullname = function(selector){
+    return {
+        selector: selector,
+        test : function(){
 
+        }
+    }
 }
-Validator.isRequiredEmail = function(){
+Validator.isRequiredEmail = function(selector){
+    return {
+        selector: selector,
+        test : function(){
 
+        }
+    }
 }
