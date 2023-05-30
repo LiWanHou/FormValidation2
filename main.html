@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charsex="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Validator Form</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div id="form">
-        <form action="" class="form" id="form-1">
+        <form action="" method="POST" class="form" id="form-1">
             <div id="header">
                 <h2 class="heading">Đăng ký</h2>
                 <p class="desc">Xin chào đến với kênh của Lê Văn Hậu</p>
@@ -18,27 +19,72 @@
 
             <div class="form-group">
                 <label for="fullname" class="form-label">Tên đầy đủ</label>
-                <input id="fullname" type="text" class="form-control" placeholder="VD: Lê Văn Hậu">
+                <input id="fullname" name="fullname" type="text" class="form-control" placeholder="VD: Lê Văn Hậu">
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
                 <label for="email" class="form-label">Email</label>
-                <input id="email" type="text" class="form-control" placeholder="VD: abc123@gmail.com">
+                <input id="email" name="email" type="text" class="form-control" placeholder="VD: abc123@gmail.com">
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
                 <label for="password" class="form-label">Nhâp mật khẩu</label>
-                <input id="password" type="text" class="form-control" placeholder="Từ 6 đến 20 kí tự">
+                <input id="password" name="password" type="password" class="form-control" placeholder="Tối thiểu 6 kí tự">
+                <div class="eye-views">
+                    <i class="fa-solid fa-eye eye-on"></i>
+                    <i class="fa-solid fa-eye-slash eye-off"></i>
+                </div>
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
                 <label for="password_confirmation" class="form-label">Nhâp lại mật khẩu</label>
-                <input id="password_confirmation" type="text" class="form-control">
+                <input id="password_confirmation" name="password_confirmation" type="password" class="form-control">
+                <div class="eye-views">
+                    <i class="fa-solid fa-eye eye-on"></i>
+                    <i class="fa-solid fa-eye-slash eye-off"></i>
+                </div>
                 <span class="form-message"></span>
             </div>
-            <div class="check">
-                <input id="check" type="checkbox" class="form-control">
-                <label for="check" class="form-label">Tôi đồng ý với thỏa thuận</label>
+            <div class="form-group">
+                <label for="gender" class="form-label">Giới tính</label>
+                <div class="gender">
+                    <input name="gender" type="radio" value="Male" class="form-control">
+                    <label for="gender">Nam</label><br>
+                    <input name="gender" type="radio" value="Female" class="form-control"> 
+                    <label for="gender">Nữ</label><br>
+                    <input name="gender" type="radio" value="Other" class="form-control"> 
+                    <label for="gender">Khác</label><br>
+                </div>
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="hobby" class="form-label">Sở thích</label>
+                <div class="hobby">
+                    <input name="hobby" type="checkbox" value="Game" class="form-control">
+                    <label for="hobby">Chơi game</label><br>
+                    <input name="hobby" type="checkbox" value="Music" class="form-control">
+                    <label for="hobby">Nghe nhạc</label><br>
+                    <input name="hobby" type="checkbox" value="Sport" class="form-control"> 
+                    <label for="hobby">Thể thao</label>
+                </div>
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="city" class="form-label">Tỉnh thành</label>
+                <select name="city" id="city">
+                    <option value="">-- Tỉnh/ thành phố --</option>
+                    <option value="HCM">Hồ Chí Minh</option>
+                    <option value="CTho">Cần Thơ</option>
+                    <option value="DNang">Đà Nẵng</option>
+                </select>
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group agreement">
+                <div>
+                    <input id="agreement" name="agreement" type="checkbox" class="form-control">
+                    <label for="agreement" class="form-label">Tôi đồng ý với thỏa thuận</label>
+                </div>
+                <span class="form-message"></span>
             </div>
             <button class="form-submit">Đăng ký</button>
 
@@ -48,13 +94,43 @@
 
     <script src="main.js"></script>
     <script>
+        var eyeViews = document.querySelectorAll('.eye-views');
+        eyeViews.forEach(function(eyeView){
+            eyeView.onclick = function(){
+                eyeView.parentElement.classList.toggle('active');
+                var inputElement = eyeView.parentElement.querySelector('input');
+                if (inputElement.type === 'password') inputElement.type = 'text'
+                else inputElement.type = 'password'
+            }
+        })
+        
+
         Validator({
             form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
             rules: [
-                Validator.isRequiredFullname('#fullname'),
-                Validator.isRequiredEmail('#email')
-            ]
+                Validator.isRequired('#fullname', 'Vui lòng nhập đầy đủ họ tên'),
+                Validator.isRequired('#email'),
+                Validator.isRequiredEmail('#email', 'Trường này là email'),
+                Validator.isRequired('#password'),
+                Validator.isRequiredPassword('#password', 6),
+                Validator.isRequired('#password_confirmation'),
+                Validator.isConfirm('#password_confirmation', function(){
+                    return document.querySelector('#form-1 #password').value
+                }, 'Xác nhận mật khẩu không khớp'),
+                Validator.isRequiredChecked('input[name="gender"]'),
+                Validator.isRequiredChecked('input[name="hobby"]'),
+                Validator.isRequiredChecked('#city'),
+                Validator.isRequiredChecked('#agreement'),
+            ],
+            onSubmit: function(data){
+                console.log(data);
+            }
         })
     </script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

@@ -3,6 +3,21 @@
     margin: 0;
     box-sizing: border-box;
 }
+::-webkit-scrollbar {
+    width: 5px;
+ }
+/* Track */
+ ::-webkit-scrollbar-track {
+   background: #f1f1f1;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #555;
+}
+/* Handle on hover */
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 html {
     color: #333;
     font-size: 62.5%;
@@ -15,6 +30,10 @@ html {
     justify-content: center;
 }
 .form {
+    position: absolute;
+    top: 10px;
+    left: auto;
+    right: auto;
     width: 360px;
     min-height: 100px;
     padding: 32px 24px;
@@ -41,11 +60,19 @@ html {
     flex-direction: column;
     margin: 12px;
 }
+.form-group.invalid input{
+    border: red 1px solid;
+}
 .form-label,
 .form-message {
     font-size: 1.6rem;
     text-align: left;
     padding-bottom: 8px;
+}
+.form-message {
+    padding-top: 4px;
+    color: red;
+    font-size: 1.4rem;
 }
 .form-control {
     padding: 10px;
@@ -62,12 +89,12 @@ html {
     outline: none;
 }
 
-.check {
-    text-align: left;
-    margin-left: 12px;
+.form-group.agreement > div {
     word-spacing: 1px;
+    text-align: left;
+    margin-left: 0px;
 }
-.check label {
+.agreement label {
     margin-left: 4px;
 }
 .form-submit {
@@ -83,4 +110,54 @@ html {
 .form-submit:hover {
     background-color: rgb(72, 252, 192);
     cursor: pointer;
+}
+.form-group {
+    position: relative;
+}
+.form-group .eye-views {
+    padding: 10px;
+}
+.form-group ion-icon {
+    font-size: 2rem;
+}
+.form-group ion-icon:hover {
+    cursor: pointer;
+}
+.form-group.invalid .eye-views {
+    transform: translateY(-50%);
+}
+.eye-views {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-30%);
+    right: 4px;
+    opacity: 0.7;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+i.eye-on {
+   display: none;
+}
+i.eye-off {
+    display: block
+}
+.form-group.active i.eye-on {
+    display: block;
+}
+.form-group.active i.eye-off {
+    display: none;
+}
+.form-group .gender {
+    display: flex;
+    font-size: 1.6rem;
+}
+.form-group .gender label {
+    margin-right: 16px;
+}
+.form-group .gender input{
+    margin-right: 5px;
+}
+.form-group .hobby {
+    font-size: 1.6rem;
+    text-align: left;
 }
