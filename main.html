@@ -105,7 +105,10 @@
         })
         
 
-        Validator('#form-1')
+        var form = new Validator('#form-1')
+        form.onSubmit = function(data){
+            console.log(data)
+        }
     </script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
